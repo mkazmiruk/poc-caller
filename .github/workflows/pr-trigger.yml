@@ -1,0 +1,13 @@
+name: Vulnerable PR Trigger
+
+# TRIGGER: Runs in the context of the base repository, has access to secrets
+on:
+  pull_request_target:
+    types: [opened, synchronize]
+
+jobs:
+  call-ci:
+    # CROSS-REPO CALL: Invoking the reusable workflow from the callee repo
+    uses: YOUR_GITHUB_USERNAME/poc-callee/.github/workflows/reusable.yml@main
+    secrets:
+      POC_SECRET: ${{ secrets.MY_SUPER_SECRET }}
